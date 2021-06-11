@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { Container, Content, Main } from './styles';
+import { Container } from './styles';
+import AnimationContainer from '../../../components/AnimationContainer';
 
 const DefaultLayout: React.FC = ({ children }) => (
   <Container>
     {/* <Header />  Adicionar um header na página e talvez um footer*/}
-    <Content>
-      <Main>{children}</Main>
-    </Content>
+    <AnimationContainer>
+      {children}
+    </AnimationContainer>
   </Container>
 );
 

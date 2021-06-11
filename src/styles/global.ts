@@ -2,7 +2,8 @@ import { createGlobalStyle } from 'styled-components';
 
   export const GlobalStyle = createGlobalStyle`
   :root {
-    --background: #7159c1;
+    --background: linear-gradient(to right, #8ac9ff, #fffde4);
+    --textColor: #333;
   }
 
   * {
@@ -12,6 +13,8 @@ import { createGlobalStyle } from 'styled-components';
   }
 
   html {
+    min-height: 100%;
+
     @media (max-width: 1080px) {
       font-size: 93.75%; // 15px
     }
@@ -27,6 +30,7 @@ import { createGlobalStyle } from 'styled-components';
   }
 
   body, input, textarea, button {
+    text-align: center;
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
   }
