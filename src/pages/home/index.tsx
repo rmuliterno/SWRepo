@@ -5,12 +5,8 @@ import AnimationContainer from '../../components/AnimationContainer';
 import api from '../../services/api';
 
 import { Container, Title, Info, LoadingContainer, MoviesGrid, MovieContainer, MovieTitle, Button } from './styles';
-
-interface FilmProps {
-  title: string,
-  release_date: string,
-  episode_id: number,
-}
+import { FilmProps } from '../../helpers/types/film';
+import { handleInfo } from '../../helpers/methods/handleInfo';
 
 const Home: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -26,18 +22,14 @@ const Home: React.FC = () => {
       setFilms(response.data.results);
       setLoading(false);
     } catch(err) {
-      console.log(err);
       setLoading(false);
       setError(true);
+      // console.log(err);
     }
   }
 
   useEffect(() => {
     getFilms();
-  }, []);
-
-  const handleClick = useCallback((film: FilmProps) => {
-    alert(`${film.title} was released in ${film.release_date}`)
   }, []);
 
   const renderMovies = useCallback(() => {
@@ -52,35 +44,35 @@ const Home: React.FC = () => {
     if (error) {
       return (
         <AnimationContainer>
-          <Info>No movie found :(</Info>
+          <Info>An error occurred :(</Info>
           <Button onClick={getFilms}>Try again!</Button>
         </AnimationContainer>
       )
     }
 
     if (films.length <= 0 && !loading) {
-      return <Info>No movie found :(</Info>
+      return <Info>I find this lack of movies disturbing :(</Info>
     }
 
     return (
-      <MoviesGrid>
-        {films &&
-          films.map(film => (
-            <MovieContainer key={film.episode_id}>
-              <MovieTitle>{film.title}</MovieTitle>
-              <Button onClick={() => handleClick(film)}>More info</Button>
-            </MovieContainer>
-        ))}
-      </MoviesGrid>
+      <AnimationContainer>
+        <MoviesGrid>
+          {films &&
+            films.map(film => (
+              <MovieContainer key={film.episode_id}>
+                <MovieTitle>{film.title}</MovieTitle>
+                <Button onClick={() => handleInfo(film)}>More info</Button>
+              </MovieContainer>
+          ))}
+        </MoviesGrid>
+      </AnimationContainer>
     )
-  }, [error, films, handleClick, loading]);
+  }, [error, films, loading]);
 
   return (
     <Container>
       <Title>Star Wars Movies</Title>
-      <AnimationContainer>
-        {renderMovies()}
-      </AnimationContainer>
+      {renderMovies()}
     </Container>
   )
 }
