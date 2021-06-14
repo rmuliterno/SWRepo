@@ -5,6 +5,8 @@ import { Switch } from 'react-router-dom';
 import Route from './Route';
 
 import Home from '../pages/home';
+import Luke from '../pages/luke';
+import Chars from '../pages/chars';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -12,6 +14,18 @@ const Routes: React.FC = () => (
       path='/'
       exact
       component={Home}
+    />
+
+    <Route
+      path='/luke'
+      exact
+      component={Luke}
+    />
+
+    <Route
+      path='/chars'
+      exact
+      component={Chars}
     />
   </Switch>
 );
